@@ -1,0 +1,46 @@
+import tkinter as tk
+import random
+
+def rand_char(a):
+    if a <= 0:
+        return ''
+    return ''.join([random.choice(list('abcdefghijklmnopqrstuvwxyz')) for i in range(a)])
+def clicked():
+    b = arg_A.get()
+    if len(b) != 6:
+        lbl_result.configure(txt='Error')
+        return
+    s = 0
+    for i in b:
+        s += int(i)
+    kod = f'{b[3:6]}{rand_char(2)}-{b[0:3]}{rand_char(2)} {int(b[3:6]) + int(b[0:3])}'
+    lbl_result.configure(txt='kod')
+def close():
+    okno.destroy()
+okno = tk.Tk()
+okno.title("Генератор кода")
+okno.geometry('500x270')
+c = tk.PhotoImage(file='![](../kartinka.png)')
+
+f = tk.Frame(okno)
+f.place(relx = 0.5, rely = 0.5, anchor = 'c')
+
+label_c = tk.Label(okno, image = c)
+label_c.place(x = 0, y = 0)
+
+lbl_A = tk.Label(okno, txt = 'Введите 6 цифр', font = ("Arial", 20), c = '#999900')
+lbl_A.grid(column = 0, row = 0, padx = 10, pady = 20)
+
+arg_A = tk.Entry(okno, wid = 15)
+arg_A.insert(0, '')
+arg_A.grid(column = 0, row = 0, padx = 10, pady = 20)
+
+lbl_result = tk.Label(okno, txt = 'Введите значение')
+lbl_result.grid(column = 0, row = 2, padx = 10, pady = 20)
+
+h = tk.Button(okno, txt = 'Вычислить', font = ("Arial", 20), command = clicked)
+h.grid(column = 0, row = 3, pady = 150)
+vihod = tk.Button(okno, txt = 'Cancel', font = ("Arial", 20), command = close)
+vihod.grid(column = 2, row = 3, padx = 200, pady = 30)
+
+okno.mainloop()
